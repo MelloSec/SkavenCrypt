@@ -3,6 +3,7 @@
 # Encryptor/Decryptor in C#
 
 ## XOR, AES, ALMOST RC4 encryption/decryption 
+If you want to encrypt something you have the options of AES or XOR encryption of decryption. You give it the keyword/phrase to encrypt/decrypt the input file and optional output file. It can decrypt as well, just instead of -xor or -aes you do -dxor -daes
 
 ```
 SkavenCrypt.exe -xor $keyword $inputFile (optional) $outputFile
