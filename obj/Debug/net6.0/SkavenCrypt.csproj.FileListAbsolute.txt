@@ -1,0 +1,17 @@
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\bin\Debug\net6.0\SkavenCrypt.exe
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\bin\Debug\net6.0\SkavenCrypt.deps.json
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\bin\Debug\net6.0\SkavenCrypt.runtimeconfig.json
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\bin\Debug\net6.0\SkavenCrypt.dll
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\bin\Debug\net6.0\SkavenCrypt.pdb
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\obj\Debug\net6.0\SkavenCrypt.csproj.AssemblyReference.cache
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\obj\Debug\net6.0\SkavenCrypt.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\obj\Debug\net6.0\SkavenCrypt.AssemblyInfoInputs.cache
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\obj\Debug\net6.0\SkavenCrypt.AssemblyInfo.cs
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\obj\Debug\net6.0\SkavenCrypt.csproj.CoreCompileInputs.cache
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\obj\Debug\net6.0\SkavenCrypt.csproj.CopyComplete
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\obj\Debug\net6.0\SkavenCrypt.dll
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\obj\Debug\net6.0\refint\SkavenCrypt.dll
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\obj\Debug\net6.0\SkavenCrypt.pdb
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\obj\Debug\net6.0\SkavenCrypt.genruntimeconfig.cache
+C:\Users\RleeA\vsworksapce\Code\GitHubProjects\2023\Evasion\SkavenCrypt\obj\Debug\net6.0\ref\SkavenCrypt.dll
