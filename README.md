@@ -11,9 +11,15 @@ SkavenCrypt.exe -xor $keyword $inputFile (optional) $outputFile
 SkavenCrypt.exe -dxor $keyword $inputFile (optional) $outputFile
 ```
 
+Encrypt:
+
 ![image](https://user-images.githubusercontent.com/65114647/214696506-9d146070-23f3-4943-afda-6ba9e3fde79f.png)
 
+Check:
+
 ![image](https://user-images.githubusercontent.com/65114647/214698612-95a69aa1-b1f6-4ffa-baf0-97f95a6255a1.png)
+
+Decrypt:
 
 ![image](https://user-images.githubusercontent.com/65114647/214698692-9e140f0d-ab02-4cdf-bc11-bd31e666e1f6.png)
 
