@@ -8,13 +8,13 @@ namespace SkavenCrypt
 {
     public class XOR
     {
-        static byte[] xorEncDec(byte[] inputData, string keyPhrase)
+        public static byte[] xorEncDec(byte[] inputData, string keyword)
         {
             //byte[] keyBytes = Encoding.UTF8.GetBytes(keyPhrase);
             byte[] bufferBytes = new byte[inputData.Length];
             for (int i = 0; i < inputData.Length; i++)
             {
-                bufferBytes[i] = (byte)(inputData[i] ^ Encoding.UTF8.GetBytes(keyPhrase)[i % Encoding.UTF8.GetBytes(keyPhrase).Length]);
+                bufferBytes[i] = (byte)(inputData[i] ^ Encoding.UTF8.GetBytes(keyword)[i % Encoding.UTF8.GetBytes(keyword).Length]);
             }
             return bufferBytes;
         }

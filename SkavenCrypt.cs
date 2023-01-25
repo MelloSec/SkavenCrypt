@@ -40,7 +40,9 @@ namespace SkavenCrypt
                     RC4.EncryptRC4(keyword, inputFile, outputFile);
                     break;
                 case "xor":
-                    // XOR encryption logic
+                    byte[] inputData = File.ReadAllBytes(inputFile);
+                    byte[] outputData = XOR.xorEncDec(inputData, keyword);
+                    File.WriteAllBytes(outputFile, outputData);
                     break;
                 case "aes":
                     // AES encryption logic
