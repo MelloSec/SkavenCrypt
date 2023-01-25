@@ -1,10 +1,7 @@
-﻿using Org.BouncyCastle.Crypto.Engines;
-using Org.BouncyCastle.Crypto.Parameters;
-using System;
+﻿using System;
 using System.IO;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using SkavenCrypt;
 
 namespace SkavenCrypt
 {
@@ -31,7 +28,7 @@ namespace SkavenCrypt
             // Get the keyword and input/output file paths
             string keyword = args[1];
             string inputFile = args[2];
-            string outputFile = args.Length > 3 ? args[3] : (mode.ToLower() == "drc4" || mode.ToLower() == "dxor" ? Path.GetFileNameWithoutExtension(inputFile) : inputFile + ".enc");
+            string outputFile = args.Length > 3 ? args[3] : inputFile + ".enc";
 
             // Implement the encryption logic
             switch (mode.ToLower())
@@ -44,6 +41,12 @@ namespace SkavenCrypt
                     byte[] outputData = XOR.xorEncDec(inputDataXOR, keyword);
                     File.WriteAllBytes(outputFile, outputData);
                     break;
+                case "aes":
+                    AES.EncryptAES(keyword, inputFile, outputFile);
+                    break;
+                case "des":
+                    // DES encryption logic
+                    break;
                 case "dxor":
                     byte[] inputDataDXOR = File.ReadAllBytes(inputFile);
                     byte[] outputDataDXOR = XOR.xorDecryption(inputDataDXOR, keyword);
@@ -52,18 +55,14 @@ namespace SkavenCrypt
                 case "drc4":
                     // Decryption logic for RC4
                     break;
-                case "aes":
-                    // AES encryption logic
-                    break;
-                case "des":
-                    // DES encryption logic
+                case "daes":
+                    AES.DecryptAES(keyword, inputFile, outputFile);
                     break;
                 default:
                     Console.WriteLine("Invalid encryption mode.");
                     break;
             }
-
         }
-
     }
 }
+
