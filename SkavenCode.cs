@@ -69,6 +69,17 @@ namespace SkavenCrypt
                 }
             }
         }
+
+        public static string EncodeToBase64(byte[] inputBytes)
+        {
+            return Convert.ToBase64String(inputBytes);
+        }
+
+        public static byte[] DecodeFromBase64(string base64String)
+        {
+            return Convert.FromBase64String(base64String);
+        }
+
     }
 }
 

@@ -30,39 +30,44 @@ namespace SkavenCrypt
             string inputFile = args[2];
             string outputFile = args.Length > 3 ? args[3] : inputFile + ".enc";
 
+            // Check if the -encode or -decode flag has been passed
+            bool isEncode = args.Contains("-encode");
+            bool isDecode = args.Contains("-decode");
+
             // Implement the encryption logic
             switch (mode.ToLower())
             {
                 case "rc4":
-                    RC4.EncryptRC4(keyword, inputFile, outputFile);
+                    if (isEncode)
+                    {
+                        byte[] inputData = File.ReadAllBytes(inputFile);
+                        byte[] compressedData = SkavenCode.Compress(inputData);
+                        byte[] encodedData = SkavenCode.Encode(compressedData);
+                        RC4.EncryptRC4(keyword, encodedData, outputFile);
+                    }
+                    else if (isDecode)
+                    {
+                        byte[] decryptedData = RC4.DecryptRC4(keyword, inputFile);
+                        byte[] decompressedData = SkavenCode.Decompress(decryptedData);
+                        byte[] decodedData = SkavenCode.Decode(decompressedData);
+                        File.WriteAllBytes(outputFile, decodedData);
+                    }
+                    else
+                    {
+                        RC4.EncryptRC4(keyword, inputFile, outputFile);
+                    }
                     break;
                 case "xor":
-                    byte[] inputDataXOR = File.ReadAllBytes(inputFile);
-                    byte[] outputData = XOR.xorEncDec(inputDataXOR, keyword);
-                    File.WriteAllBytes(outputFile, outputData);
-                    break;
-                case "aes":
-                    AES.EncryptAES(keyword, inputFile, outputFile);
-                    break;
-                case "des":
-                    // DES encryption logic
-                    break;
-                case "dxor":
-                    byte[] inputDataDXOR = File.ReadAllBytes(inputFile);
-                    byte[] outputDataDXOR = XOR.xorDecryption(inputDataDXOR, keyword);
-                    File.WriteAllBytes(outputFile, outputDataDXOR);
-                    break;
-                case "drc4":
-                    // Decryption logic for RC4
-                    break;
-                case "daes":
-                    AES.DecryptAES(keyword, inputFile, outputFile);
-                    break;
-                default:
-                    Console.WriteLine("Invalid encryption mode.");
-                    break;
-            }
-        }
-    }
-}
-
+                    if (isEncode)
+                    {
+                        byte[] inputData = File.ReadAllBytes(inputFile);
+                        byte[] compressedData = SkavenCode.Compress(inputData);
+                        byte[] encodedData = SkavenCode.Encode(compressedData);
+                        byte[] outputData = XOR.xorEncDec(encodedData, keyword);
+                        File.WriteAllBytes(outputFile, outputData);
+                    }
+                    else if (isDecode)
+                    {
+                        {
+                            // Decode the file
+                            byte[] decodedBytes = Convert.FromBase64String(File.ReadAllText(inputFile));
