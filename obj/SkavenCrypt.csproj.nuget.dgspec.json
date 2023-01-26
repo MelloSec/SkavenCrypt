@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\RleeA\\vsworksapce\\Code\\GitHubProjects\\2023\\Evasion\\SkavenCrypt\\SkavenCrypt.csproj": {}
+    "C:\\Users\\RleeA\\vsworksapce\\Code\\GitHubProjects\\2023\\Mellosec\\SkavenCrypt\\SkavenCrypt.csproj": {}
   },
   "projects": {
-    "C:\\Users\\RleeA\\vsworksapce\\Code\\GitHubProjects\\2023\\Evasion\\SkavenCrypt\\SkavenCrypt.csproj": {
+    "C:\\Users\\RleeA\\vsworksapce\\Code\\GitHubProjects\\2023\\Mellosec\\SkavenCrypt\\SkavenCrypt.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\RleeA\\vsworksapce\\Code\\GitHubProjects\\2023\\Evasion\\SkavenCrypt\\SkavenCrypt.csproj",
+        "projectUniqueName": "C:\\Users\\RleeA\\vsworksapce\\Code\\GitHubProjects\\2023\\Mellosec\\SkavenCrypt\\SkavenCrypt.csproj",
         "projectName": "SkavenCrypt",
-        "projectPath": "C:\\Users\\RleeA\\vsworksapce\\Code\\GitHubProjects\\2023\\Evasion\\SkavenCrypt\\SkavenCrypt.csproj",
+        "projectPath": "C:\\Users\\RleeA\\vsworksapce\\Code\\GitHubProjects\\2023\\Mellosec\\SkavenCrypt\\SkavenCrypt.csproj",
         "packagesPath": "C:\\Users\\RleeA\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\RleeA\\vsworksapce\\Code\\GitHubProjects\\2023\\Evasion\\SkavenCrypt\\obj\\",
+        "outputPath": "C:\\Users\\RleeA\\vsworksapce\\Code\\GitHubProjects\\2023\\Mellosec\\SkavenCrypt\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

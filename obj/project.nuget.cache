@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9+nqnSXVjpLstdXYGxOTnpqvesr3TV/SjIgWJI6OmoTNGW9I09Ho8AEICDIs8DJeTVT6OwmD9NSTyAolfukk/A==",
+  "dgSpecHash": "GEhHELA2nDkiqvdjWXwejQ4Q1N9uKpBKrJfN/RHfBAZNVecLvX4aHlS3SvhRR8j8SdpqfBaekX5xcq7xXWG/Rg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\RleeA\\vsworksapce\\Code\\GitHubProjects\\2023\\Evasion\\SkavenCrypt\\SkavenCrypt.csproj",
+  "projectFilePath": "C:\\Users\\RleeA\\vsworksapce\\Code\\GitHubProjects\\2023\\Mellosec\\SkavenCrypt\\SkavenCrypt.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\RleeA\\.nuget\\packages\\bouncycastle\\1.8.9\\bouncycastle.1.8.9.nupkg.sha512"
   ],
