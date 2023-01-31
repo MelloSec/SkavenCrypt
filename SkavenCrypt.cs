@@ -37,6 +37,7 @@ namespace SkavenCrypt
             bool isDecode = args.Contains("-decode");
             bool isCompress = args.Contains("-compress");
             bool isDecompress = args.Contains("-decompress");
+            bool isDecrypt = args.Contains("-decrypt");
 
             // Implement the encryption logic
             switch (mode.ToLower())
@@ -83,11 +84,18 @@ namespace SkavenCrypt
                         byte[] decryptedData = XOR.xorEncDec(decompressedData, keyword);
                         File.WriteAllBytes(outputFile, decryptedData);
                     }
+                    else if (isDecrypt)
+                    {
+                        byte[] inputBytes = File.ReadAllBytes(inputFile);
+                        byte[] decryptedBytes = XOR.DecryptXOR(inputBytes, keyword);
+                        File.WriteAllBytes(outputFile, decryptedBytes);
+                    }
                     else
                     {
-                        byte[] inputData = File.ReadAllBytes(inputFile);
-                        byte[] xorEncrypted = XOR.EncryptXOR(inputData, keyword);
-                        File.WriteAllBytes(outputFile, xorEncrypted);
+                        /*                        byte[] inputData = File.ReadAllBytes(inputFile);
+                                                byte[] xorEncrypted = XOR.EncryptXOR(inputData, keyword);
+                                                File.WriteAllBytes(outputFile, xorEncrypted);*/
+                        XOR.EncryptXORFile(inputFile, keyword, outputFile);
                     }
                     break;
                 case "aes":
@@ -101,15 +109,20 @@ namespace SkavenCrypt
                         SkavenCode.CompressAndEncodeFile(encryptedFile, outputFile);
 
                         // Delete the intermediate encrypted file
-                        File.Delete(encryptedFile);
+                        
                     }
-
                     else if (isDecode)
                     {
                         // Decode the file
                         byte[] decodedBytes = Convert.FromBase64String(File.ReadAllText(inputFile));
                         byte[] decodedData = SkavenCode.DecompressData(decodedBytes);
                         byte[] decryptedData = AES.DecryptAES(keyword, decodedData);
+                        File.WriteAllBytes(outputFile, decryptedData);
+                    }
+                    else if (isDecrypt)
+                    {
+                        byte[] inputData = File.ReadAllBytes(inputFile);
+                        byte[] decryptedData = AES.DecryptAES(keyword, inputData);
                         File.WriteAllBytes(outputFile, decryptedData);
                     }
                     else
@@ -130,23 +143,24 @@ namespace SkavenCrypt
                     }
                     else if (isCompress)
                     {
-                        Console.WriteLine("CompressData selected");
+                        SkavenCode.CompressFile(inputFile, outputFile);
                     }
                     else if (isDecompress)
                     {
-                        Console.WriteLine("DecompressData selected");
+                        SkavenCode.DecompressFile(inputFile, outputFile);
                     }
                     else if (isCompress && isEncode)
                     {
-                        //Do something
+                        SkavenCode.CompressAndEncodeFile(inputFile, outputFile);
                     }
                     else if (isDecompress && isDecode)
                     {
-                        //Do something
+                        SkavenCode.DecodeAndDecompressFile(inputFile, outputFile);
+                        
                     }
                     else
                     {
-                        Console.WriteLine("Invalid arguments.");
+                        Console.WriteLine("get yo life.");
                     }
                     break;
             }

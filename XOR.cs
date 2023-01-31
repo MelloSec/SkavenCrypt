@@ -19,20 +19,36 @@ namespace SkavenCrypt
             return bufferBytes;
         }
 
-        public static byte[] EncryptXOR(byte[] inputData, string keyword)
+        public static byte[] EncryptXOR(byte[] inputData, string keyword, string inputFile = null)
         {
+            byte[] inputData = (inputFile == null) ? inputData : File.ReadAllBytes(inputFile);
             byte[] xorEncrypted = xorEncDec(inputData, keyword);
+            if (inputFile != null) File.WriteAllBytes(inputFile + ".xor", xorEncrypted);
             return xorEncrypted;
-
         }
 
-        static public byte[] DecryptXOR(byte[] inputData, string keyword)
+        public static byte[] DecryptXOR(byte[] inputData, string keyword, string inputFile = null)
         {
-            // changed this if it breaks check here 
+            byte[] inputData = (inputFile == null) ? inputData : File.ReadAllBytes(inputFile);
             byte[] xorDecrypted = xorEncDec(inputData, keyword);
+            if (inputFile != null) File.WriteAllBytes(inputFile.Replace(".xor", ""), xorDecrypted);
             return xorDecrypted;
-
         }
+
+        /*        public static byte[] EncryptXOR(byte[] inputData, string keyword)
+                {
+                    byte[] xorEncrypted = xorEncDec(inputData, keyword);
+                    return xorEncrypted;
+
+                }
+
+                static public byte[] DecryptXOR(byte[] inputData, string keyword)
+                {
+                    // changed this if it breaks check here 
+                    byte[] xorDecrypted = xorEncDec(inputData, keyword);
+                    return xorDecrypted;
+
+                }*/
 
 
     }

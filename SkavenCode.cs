@@ -53,7 +53,7 @@ namespace Dll4Xll
 
 
 
-        public static void DecodeAndDecompress(string inputFile, string outputFile)
+        public static void DecodeAndDecompressFile(string inputFile, string outputFile)
         {
             using (FileStream inputStream = new FileStream(inputFile, FileMode.Open))
             using (FileStream outputStream = new FileStream(outputFile, FileMode.Create))
