@@ -16,19 +16,43 @@ namespace Dll4Xll
                 inputBytes = new byte[inputStream.Length];
                 inputStream.Read(inputBytes, 0, (int)inputStream.Length);
             }
-
             // Compress the input bytes
             byte[] compressedBytes = Compress(inputBytes);
-
             // Encode the compressed bytes in base64
             string encodedString = Convert.ToBase64String(compressedBytes);
-
             // Write the encoded string to the output file
             using (var outputStream = new StreamWriter(outputFile))
             {
                 outputStream.Write(encodedString);
             }
         }
+
+        public static byte[] CompressAndEncodeData(string inputData)
+        {
+            byte[] inputBytes = Encoding.UTF8.GetBytes(inputData);
+            // Compress the input bytes
+            byte[] compressedBytes = Compress(inputBytes);
+            // Encode the compressed bytes in base64
+            string encodedString = Convert.ToBase64String(compressedBytes);
+            return encodedString;
+        }
+
+        public static byte[] CompressAndEncodeDataUrl(string url)
+        {
+            byte[] inputBytes;
+            using (var client = new WebClient())
+            {
+                inputBytes = client.DownloadData(url);
+            }      
+            // Compress the input bytes
+            byte[] compressedBytes = Compress(inputBytes);
+            // Encode the compressed bytes in base64
+            string encodedString = Convert.ToBase64String(compressedBytes);
+            return encodedString;
+        }
+
+
+
         public static void DecodeAndDecompress(string inputFile, string outputFile)
         {
             using (FileStream inputStream = new FileStream(inputFile, FileMode.Open))
