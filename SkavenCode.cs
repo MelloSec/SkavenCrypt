@@ -37,7 +37,7 @@ namespace Dll4Xll
             return encodedString;
         }
 
-        public static string CompressAndEncodeDataUrl(string url)
+        public static string CompressAndEncodeUrl(string url)
         {
             byte[] inputBytes;
             using (var client = new WebClient())
@@ -66,6 +66,13 @@ namespace Dll4Xll
                     outputStream.Write(buffer, 0, read);
                 }
             }
+        }
+
+        public static byte[] DecodeAndDecompressData(string encodedData)
+        {
+            byte[] compressedData = Convert.FromBase64String(encodedData);
+            byte[] decompressedData = Decompress(compressedData);
+            return decompressedData;
         }
 
         public static byte[] DecodeAndDecompressUrl(string url)
@@ -108,7 +115,7 @@ namespace Dll4Xll
         // Changed return to "decompressed"
         public static byte[] Decompress(byte[] inputBytes)            
         {
-            byte[] decompressed;
+            byte[] decompressedData;
             using (MemoryStream ms = new MemoryStream(inputBytes))
             {
                 using (GZipStream decompressionStream = new GZipStream(ms, CompressionMode.Decompress))
@@ -116,19 +123,24 @@ namespace Dll4Xll
                     using (MemoryStream outputStream = new MemoryStream())
                     {
                         decompressionStream.CopyTo(outputStream);
-                        decompressed = outputStream.ToArray();
+                        decompressedData = outputStream.ToArray();
                     }
                 }
             }
-            return decompressed;
+            return decompressedData;
         }
 
         // Should make these "EncodeToBase64File" to differentiate from Url
         public static void EncodeToBase64(string inputFile, string outputFile)
         {
             byte[] inputBytes = File.ReadAllBytes(inputFile);
-            string base64Encoded = Convert.ToBase64String(inputBytes);
-            File.WriteAllText(outputFile, base64Encoded);
+            string encodedData = Convert.ToBase64String(inputBytes);
+            File.WriteAllText(outputFile, encodedData);
+        }
+        public static void EncodeToBase64Data(byte[] compressedData, string outputFile)
+        {
+            string encodedData = Convert.ToBase64String(compressedData);
+            File.WriteAllText(outputFile, encodedData);
         }
 
         public static string EncodeToBase64Url(string url)
@@ -137,12 +149,17 @@ namespace Dll4Xll
             {
                 string String = client.DownloadString(url);
                 byte[] inputBytes = Encoding.UTF8.GetBytes(String);
-                string encodedString = Convert.ToBase64String(inputBytes);
-                return encodedString;
+                string encodedData = Convert.ToBase64String(inputBytes);
+                return encodedData;
             }
         }
 
-
+        public static byte[] DecodeFromBase64Data(string inputFile)
+        {
+            string encodedData = File.ReadAllText(inputFile);
+            byte[] decodedData = Convert.FromBase64String(encodedData);
+            return decodedData;
+        }
 
         public static void DecodeFromBase64(string inputFile, string outputFile)
         {

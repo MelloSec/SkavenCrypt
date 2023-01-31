@@ -7,7 +7,7 @@ namespace SkavenCrypt
 {
     public class AES
     {
-        public static void EncryptAES(string keyword, string inputFile, string outputFile)
+        public static void EncryptAES(string keyword, string inputFile, string encryptedFile)
         {
             byte[] key = Encoding.UTF8.GetBytes(keyword);
             byte[] iv = new byte[16];
@@ -25,7 +25,7 @@ namespace SkavenCrypt
             byte[] outputData = AESEncryption(inputData, key, iv);
 
             // Write the encrypted data to the output file
-            File.WriteAllBytes(outputFile, outputData);
+            File.WriteAllBytes(encryptedFile, outputData);
         }
 
         public static void DecryptAES(string keyword, string inputFile, string outputFile)
@@ -73,6 +73,21 @@ namespace SkavenCrypt
                 }
             }
         }
+
+        public static byte[] DecryptAES(string keyword, byte[] inputData)
+        {
+            byte[] key = Encoding.UTF8.GetBytes(keyword);
+            byte[] iv = new byte[16];
+            Buffer.BlockCopy(Encoding.UTF8.GetBytes(keyword), 0, iv, 0, iv.Length);
+            if (key.Length * 8 != 128 && key.Length * 8 != 192 && key.Length * 8 != 256)
+            {
+                Console.WriteLine("Invalid key size. Key size must be 128, 192 or 256 bits");
+                return null;
+            }
+
+            return AESDecryption(inputData, key, iv);
+        }
+
 
         private static byte[] AESDecryption(byte[] inputData, byte[] key, byte[] iv)
         {
