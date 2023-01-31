@@ -75,6 +75,7 @@ namespace SkavenCrypt
                                                 SkavenCode.EncodeToBase64Data(compressedData, outputFile);
                                                 File.WriteAllBytes(outputFile, compressedData);*/
 
+                        // Try it maybe with compress first?
                         {
                             byte[] inputData = File.ReadAllBytes(inputFile);
                             byte[] encryptedData = XOR.EncryptXOR(inputData, keyword);
