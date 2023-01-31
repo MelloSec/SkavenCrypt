@@ -1,0 +1,6 @@
+C:\Users\RleeA\OneDrive\vsWorkspace\Code\GitHubProjects\2023\Mellosec\SkavenCrypt\bin\Release\net6.0\publish\SkavenCrypt.exe
+C:\Users\RleeA\OneDrive\vsWorkspace\Code\GitHubProjects\2023\Mellosec\SkavenCrypt\bin\Release\net6.0\publish\SkavenCrypt.dll
+C:\Users\RleeA\OneDrive\vsWorkspace\Code\GitHubProjects\2023\Mellosec\SkavenCrypt\bin\Release\net6.0\publish\SkavenCrypt.deps.json
+C:\Users\RleeA\OneDrive\vsWorkspace\Code\GitHubProjects\2023\Mellosec\SkavenCrypt\bin\Release\net6.0\publish\SkavenCrypt.runtimeconfig.json
+C:\Users\RleeA\OneDrive\vsWorkspace\Code\GitHubProjects\2023\Mellosec\SkavenCrypt\bin\Release\net6.0\publish\SkavenCrypt.pdb
+C:\Users\RleeA\OneDrive\vsWorkspace\Code\GitHubProjects\2023\Mellosec\SkavenCrypt\bin\Release\net6.0\publish\BouncyCastle.Crypto.dll

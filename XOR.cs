@@ -34,6 +34,21 @@ namespace SkavenCrypt
 
         }
 
+        public static void EncryptXORFile(string inputFile, string keyword, string outputFile)
+        {
+            byte[] inputData = File.ReadAllBytes(inputFile);
+            byte[] xorEncrypted = xorEncDec(inputData, keyword);
+            File.WriteAllBytes(outputFile, xorEncrypted);
+        }
+
+        public static void DecryptXORFile(string inputFile, string keyword, string outputFile)
+        {
+            byte[] inputData = File.ReadAllBytes(inputFile);
+            byte[] xorDecrypted = xorEncDec(inputData, keyword);
+            File.WriteAllBytes(outputFile, xorDecrypted);
+        }
+
+
 
     }
 }
