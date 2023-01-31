@@ -26,8 +26,8 @@ namespace Dll4Xll
                 outputStream.Write(encodedString);
             }
         }
-
-        public static byte[] CompressAndEncodeData(string inputData)
+        
+        public static string CompressAndEncodeData(string inputData)
         {
             byte[] inputBytes = Encoding.UTF8.GetBytes(inputData);
             // Compress the input bytes
@@ -37,7 +37,7 @@ namespace Dll4Xll
             return encodedString;
         }
 
-        public static byte[] CompressAndEncodeDataUrl(string url)
+        public static string CompressAndEncodeDataUrl(string url)
         {
             byte[] inputBytes;
             using (var client = new WebClient())
@@ -106,8 +106,9 @@ namespace Dll4Xll
         }
 
         // Changed return to "decompressed"
-        public static byte[] Decompress(byte[] inputBytes)
+        public static byte[] Decompress(byte[] inputBytes)            
         {
+            byte[] decompressed;
             using (MemoryStream ms = new MemoryStream(inputBytes))
             {
                 using (GZipStream decompressionStream = new GZipStream(ms, CompressionMode.Decompress))
@@ -130,13 +131,14 @@ namespace Dll4Xll
             File.WriteAllText(outputFile, base64Encoded);
         }
 
-        public static void EncodeToBase64Url(string url)
+        public static string EncodeToBase64Url(string url)
         {
             using (WebClient client = new WebClient())
             {
                 string String = client.DownloadString(url);
-                byte[] inputBytes = Convert.ToBase64String(String);
-                return inputBytes;
+                byte[] inputBytes = Encoding.UTF8.GetBytes(String);
+                string encodedString = Convert.ToBase64String(inputBytes);
+                return encodedString;
             }
         }
 
