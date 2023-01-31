@@ -8,7 +8,7 @@ namespace Dll4Xll
 {
     public class SkavenCode
     {
-        public static void CompressAndEncode(string inputFile, string outputFile)
+        public static void CompressAndEncodeFile(string inputFile, string outputFile)
         {
             byte[] inputBytes;
             using (var inputStream = new FileStream(inputFile, FileMode.Open, FileAccess.Read))
@@ -17,7 +17,7 @@ namespace Dll4Xll
                 inputStream.Read(inputBytes, 0, (int)inputStream.Length);
             }
             // Compress the input bytes
-            byte[] compressedBytes = Compress(inputBytes);
+            byte[] compressedBytes = CompressData(inputBytes);
             // Encode the compressed bytes in base64
             string encodedString = Convert.ToBase64String(compressedBytes);
             // Write the encoded string to the output file
@@ -31,7 +31,7 @@ namespace Dll4Xll
         {
             byte[] inputBytes = Encoding.UTF8.GetBytes(inputData);
             // Compress the input bytes
-            byte[] compressedBytes = Compress(inputBytes);
+            byte[] compressedBytes = CompressData(inputBytes);
             // Encode the compressed bytes in base64
             string encodedString = Convert.ToBase64String(compressedBytes);
             return encodedString;
@@ -45,7 +45,7 @@ namespace Dll4Xll
                 inputBytes = client.DownloadData(url);
             }      
             // Compress the input bytes
-            byte[] compressedBytes = Compress(inputBytes);
+            byte[] compressedBytes = CompressData(inputBytes);
             // Encode the compressed bytes in base64
             string encodedString = Convert.ToBase64String(compressedBytes);
             return encodedString;
@@ -71,7 +71,7 @@ namespace Dll4Xll
         public static byte[] DecodeAndDecompressData(string encodedData)
         {
             byte[] compressedData = Convert.FromBase64String(encodedData);
-            byte[] decompressedData = Decompress(compressedData);
+            byte[] decompressedData = DecompressData(compressedData);
             return decompressedData;
         }
 
@@ -99,7 +99,7 @@ namespace Dll4Xll
         }
 
         // Changes here to return value, storing as input bytes and returning
-        public static byte[] Compress(byte[] inputBytes)
+        public static byte[] CompressData(byte[] inputBytes)
         {
             using (MemoryStream ms = new MemoryStream())
             {
@@ -112,8 +112,45 @@ namespace Dll4Xll
             return inputBytes;
         }
 
-        // Changed return to "decompressed"
-        public static byte[] Decompress(byte[] inputBytes)            
+        public static void CompressFile(string inputFile, string outputFile)
+        {
+            byte[] inputBytes = File.ReadAllBytes(inputFile);
+            byte[] compressedBytes = CompressData(inputBytes);
+            File.WriteAllBytes(outputFile, compressedBytes);
+        }
+
+        public static byte[] CompressFromUrl(string url, string outputFile = null)
+        {
+            byte[] compressedData;
+            using (WebClient client = new WebClient())
+            {
+                compressedData = client.DownloadData(url);
+            }
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (GZipStream compressionStream = new GZipStream(ms, CompressionMode.Compress))
+                {
+                    compressionStream.Write(compressedData, 0, compressedData.Length);
+                }
+                compressedData = ms.ToArray();
+            }
+
+            if (outputFile != null)
+            {
+                File.WriteAllBytes(outputFile, compressedData);
+                return null;
+            }
+            else
+            {
+                return compressedData;
+            }
+        }
+
+
+
+
+        public static byte[] DecompressData(byte[] inputBytes)            
         {
             byte[] decompressedData;
             using (MemoryStream ms = new MemoryStream(inputBytes))
@@ -130,8 +167,45 @@ namespace Dll4Xll
             return decompressedData;
         }
 
+        public static void DecompressFile(string inputFile, string outputFile)
+        {
+            byte[] inputBytes = File.ReadAllBytes(inputFile);
+            byte[] decompressedBytes = DecompressData(inputBytes);
+            File.WriteAllBytes(outputFile, decompressedBytes);
+        }
+
+        public static byte[] DecompressFromUrl(string url, string outputFile = null)
+        {
+            byte[] decompressedData;
+            using (WebClient client = new WebClient())
+            {
+                byte[] inputBytes = client.DownloadData(url);
+                using (MemoryStream ms = new MemoryStream(inputBytes))
+                {
+                    using (GZipStream decompressionStream = new GZipStream(ms, CompressionMode.Decompress))
+                    {
+                        using (MemoryStream outputStream = new MemoryStream())
+                        {
+                            decompressionStream.CopyTo(outputStream);
+                            decompressedData = outputStream.ToArray();
+                        }
+                    }
+                }
+            }
+
+            if (outputFile != null)
+            {
+                File.WriteAllBytes(outputFile, decompressedData);
+                return null;
+            }
+            else
+            {
+                return decompressedData;
+            }
+        }
+
         // Should make these "EncodeToBase64File" to differentiate from Url
-        public static void EncodeToBase64(string inputFile, string outputFile)
+        public static void EncodeToBase64File(string inputFile, string outputFile)
         {
             byte[] inputBytes = File.ReadAllBytes(inputFile);
             string encodedData = Convert.ToBase64String(inputBytes);
@@ -161,7 +235,7 @@ namespace Dll4Xll
             return decodedData;
         }
 
-        public static void DecodeFromBase64(string inputFile, string outputFile)
+        public static void DecodeFromBase64File(string inputFile, string outputFile)
         {
             string base64String = File.ReadAllText(inputFile);
             byte[] decodedBytes = Convert.FromBase64String(base64String);

@@ -70,7 +70,7 @@ namespace SkavenCrypt
                     {
                         byte[] inputData = File.ReadAllBytes(inputFile);
                         byte[] encryptedData = XOR.xorEncDec(inputData, keyword);
-                        byte[] compressedData = SkavenCode.Compress(encryptedData);
+                        byte[] compressedData = SkavenCode.CompressData(encryptedData);
                         SkavenCode.EncodeToBase64Data(compressedData, outputFile);
                         File.WriteAllBytes(outputFile, compressedData);
 
@@ -79,7 +79,7 @@ namespace SkavenCrypt
                     {
                         // Decode the file
                         byte[] decodedBytes = Convert.FromBase64String(File.ReadAllText(inputFile));
-                        byte[] decompressedData = SkavenCode.Decompress(decodedBytes);
+                        byte[] decompressedData = SkavenCode.DecompressData(decodedBytes);
                         byte[] decryptedData = XOR.xorEncDec(decompressedData, keyword);
                         File.WriteAllBytes(outputFile, decryptedData);
                     }
@@ -98,7 +98,7 @@ namespace SkavenCrypt
                         AES.EncryptAES(keyword, inputFile, encryptedFile);
 
                         // Compress and encode the encrypted file
-                        SkavenCode.CompressAndEncode(encryptedFile, outputFile);
+                        SkavenCode.CompressAndEncodeFile(encryptedFile, outputFile);
 
                         // Delete the intermediate encrypted file
                         File.Delete(encryptedFile);
@@ -108,7 +108,7 @@ namespace SkavenCrypt
                     {
                         // Decode the file
                         byte[] decodedBytes = Convert.FromBase64String(File.ReadAllText(inputFile));
-                        byte[] decodedData = SkavenCode.Decompress(decodedBytes);
+                        byte[] decodedData = SkavenCode.DecompressData(decodedBytes);
                         byte[] decryptedData = AES.DecryptAES(keyword, decodedData);
                         File.WriteAllBytes(outputFile, decryptedData);
                     }
@@ -121,20 +121,20 @@ namespace SkavenCrypt
                     if (isEncode)
                     {
                         // Encode the file to base64
-                        SkavenCode.EncodeToBase64(inputFile, outputFile);
+                        SkavenCode.EncodeToBase64File(inputFile, outputFile);
                     }
                     else if (isDecode)
                     {
                          // Decode the file from base64
-                         SkavenCode.DecodeFromBase64(inputFile, outputFile);
+                         SkavenCode.DecodeFromBase64File(inputFile, outputFile);
                     }
                     else if (isCompress)
                     {
-                        Console.WriteLine("Compress selected");
+                        Console.WriteLine("CompressData selected");
                     }
                     else if (isDecompress)
                     {
-                        Console.WriteLine("Decompress selected");
+                        Console.WriteLine("DecompressData selected");
                     }
                     else if (isCompress && isEncode)
                     {
