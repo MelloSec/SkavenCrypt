@@ -61,13 +61,59 @@ namespace SkavenCrypt
                     if (isEncode)
                     {
                         byte[] inputData = File.ReadAllBytes(inputFile);
-                        byte[] compressedData = SkavenCode.Compress(inputData);
+                        byte[] encryptedData = XOR.xorEncDec(inputData, keyword);
+                        byte[] compressedData = SkavenCode.Compress(encryptedData);
                         byte[] encodedData = SkavenCode.Encode(compressedData);
-                        byte[] outputData = XOR.xorEncDec(encodedData, keyword);
-                        File.WriteAllBytes(outputFile, outputData);
+                        File.WriteAllBytes(outputFile, encodedData);
+
                     }
                     else if (isDecode)
                     {
-                        {
-                            // Decode the file
-                            byte[] decodedBytes = Convert.FromBase64String(File.ReadAllText(inputFile));
+                        // Decode the file
+                        byte[] decodedBytes = Convert.FromBase64String(File.ReadAllText(inputFile));
+                        byte[] decompressedData = SkavenCode.Decompress(decodedBytes);
+                        byte[] decryptedData = XOR.xorEncDec(decompressedData, keyword);
+                        File.WriteAllBytes(outputFile, decryptedData);
+                    }
+                    else
+                    {
+                        XOR.EncryptXOR(keyword, inputFile, outputFile);
+                    }
+                    break;
+                case "aes":
+                    if (isEncode)
+                    {
+                        // Encrypt the file
+                        byte[] inputData = File.ReadAllBytes(inputFile);
+                        byte[] encryptedData = AES.EncryptAES(keyword, inputData);
+                        byte[] compressedData = SkavenCode.Compress(encryptedData);
+                        byte[] encodedData = SkavenCode.Encode(compressedData);
+                        File.WriteAllBytes(outputFile, encodedData);
+                    }
+                    else if (isDecode)
+                    {
+                        // Decode the file
+                        byte[] decodedBytes = Convert.FromBase64String(File.ReadAllText(inputFile));
+                        byte[] decodedData = SkavenCode.Decompress(decodedBytes);
+                        byte[] decryptedData = AES.DecryptAES(keyword, decodedData);
+                        File.WriteAllBytes(outputFile, decryptedData);
+                    }
+                    else
+                    {
+                        AES.EncryptAES(keyword, inputFile, outputFile);
+                    }
+                    break;
+                case "-b64":
+                    if (isEncode)
+                    {
+                        // Encode the file to base64
+                        string base64Encoded = SkavenCode.EncodeToBase64(inputFile);
+                        File.WriteAllText(outputFile, base64Encoded);
+                    }
+                    else if (isDecode)
+                    {
+                        // Decode the file from base64
+                        byte[] decodedBytes = SkavenCode.DecodeFromBase64(inputFile);
+                        File.WriteAllBytes(outputFile, decodedBytes);
+                    }
+                    break;
