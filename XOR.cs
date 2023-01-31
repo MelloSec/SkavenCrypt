@@ -19,9 +19,19 @@ namespace SkavenCrypt
             return bufferBytes;
         }
 
-        static public byte[] xorDecryption(byte[] inputData, string keyword)
+        public static byte[] EncryptXOR(byte[] inputData, string keyword)
         {
-            return xorEncDec(inputData, keyword);
+            byte[] xorEncrypted = xorEncDec(inputData, keyword);
+            return xorEncrypted;
+
+        }
+
+        static public byte[] DecryptXOR(byte[] inputData, string keyword)
+        {
+            // changed this if it breaks check here 
+            byte[] xorDecrypted = xorEncDec(inputData, keyword);
+            return xorDecrypted;
+
         }
 
 
