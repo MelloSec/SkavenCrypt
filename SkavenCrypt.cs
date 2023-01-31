@@ -69,29 +69,40 @@ namespace SkavenCrypt
                 case "xor":
                     if (isEncode)
                     {
-                        byte[] inputData = File.ReadAllBytes(inputFile);
-                        byte[] encryptedData = XOR.xorEncDec(inputData, keyword);
-                        byte[] compressedData = SkavenCode.CompressData(encryptedData);
-                        SkavenCode.EncodeToBase64Data(compressedData, outputFile);
-                        File.WriteAllBytes(outputFile, compressedData);
+                        /*                        byte[] inputData = File.ReadAllBytes(inputFile);
+                                                byte[] encryptedData = XOR.xorEncDec(inputData, keyword);
+                                                byte[] compressedData = SkavenCode.CompressData(encryptedData);
+                                                SkavenCode.EncodeToBase64Data(compressedData, outputFile);
+                                                File.WriteAllBytes(outputFile, compressedData);*/
+
+                        {
+                            byte[] inputData = File.ReadAllBytes(inputFile);
+                            byte[] encryptedData = XOR.EncryptXOR(inputData, keyword);
+                            byte[] compressedData = SkavenCode.CompressData(encryptedData);
+                            SkavenCode.EncodeToBase64Data(compressedData, outputFile);
+                        }
 
                     }
                     else if (isDecode)
                     {
                         // Decode the file
                         byte[] decodedBytes = Convert.FromBase64String(File.ReadAllText(inputFile));
-                        byte[] decompressedData = SkavenCode.DecompressData(decodedBytes);
-                        byte[] decryptedData = XOR.xorEncDec(decompressedData, keyword);
+                        byte[] inputData = SkavenCode.DecompressData(decodedBytes);
+                        byte[] decryptedData = XOR.DecryptXOR(inputData, keyword);
                         File.WriteAllBytes(outputFile, decryptedData);
                     }
-                    else if (isDecrypt)
+                    else if (isDecrypt)                   
                     {
-                        byte[] inputBytes = File.ReadAllBytes(inputFile);
-                        byte[] decryptedBytes = XOR.DecryptXOR(inputBytes, keyword);
-                        File.WriteAllBytes(outputFile, decryptedBytes);
+                        // Old Way
+                        /*                        byte[] inputBytes = File.ReadAllBytes(inputFile);
+                                                byte[] decryptedBytes = XOR.DecryptXOR(inputBytes, keyword);
+                                                File.WriteAllBytes(outputFile, decryptedBytes);*/
+                        XOR.DecryptXORFile(inputFile, keyword, outputFile);
+
                     }
                     else
                     {
+                        // Old Way
                         /*                        byte[] inputData = File.ReadAllBytes(inputFile);
                                                 byte[] xorEncrypted = XOR.EncryptXOR(inputData, keyword);
                                                 File.WriteAllBytes(outputFile, xorEncrypted);*/

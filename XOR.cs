@@ -19,36 +19,35 @@ namespace SkavenCrypt
             return bufferBytes;
         }
 
-        public static byte[] EncryptXOR(byte[] inputData, string keyword, string inputFile = null)
+        public static byte[] EncryptXOR(byte[] inputData, string keyword)
         {
-            byte[] inputData = (inputFile == null) ? inputData : File.ReadAllBytes(inputFile);
             byte[] xorEncrypted = xorEncDec(inputData, keyword);
-            if (inputFile != null) File.WriteAllBytes(inputFile + ".xor", xorEncrypted);
             return xorEncrypted;
+
         }
 
-        public static byte[] DecryptXOR(byte[] inputData, string keyword, string inputFile = null)
+        static public byte[] DecryptXOR(byte[] inputData, string keyword)
         {
-            byte[] inputData = (inputFile == null) ? inputData : File.ReadAllBytes(inputFile);
+            // changed this if it breaks check here 
             byte[] xorDecrypted = xorEncDec(inputData, keyword);
-            if (inputFile != null) File.WriteAllBytes(inputFile.Replace(".xor", ""), xorDecrypted);
             return xorDecrypted;
+
         }
 
-        /*        public static byte[] EncryptXOR(byte[] inputData, string keyword)
-                {
-                    byte[] xorEncrypted = xorEncDec(inputData, keyword);
-                    return xorEncrypted;
+        public static void EncryptXORFile(string inputFile, string keyword, string outputFile)
+        {
+            byte[] inputData = File.ReadAllBytes(inputFile);
+            byte[] xorEncrypted = xorEncDec(inputData, keyword);
+            File.WriteAllBytes(outputFile, xorEncrypted);
+        }
 
-                }
+        public static void DecryptXORFile(string inputFile, string keyword, string outputFile)
+        {
+            byte[] inputData = File.ReadAllBytes(inputFile);
+            byte[] xorDecrypted = xorEncDec(inputData, keyword);
+            File.WriteAllBytes(outputFile, xorDecrypted);
+        }
 
-                static public byte[] DecryptXOR(byte[] inputData, string keyword)
-                {
-                    // changed this if it breaks check here 
-                    byte[] xorDecrypted = xorEncDec(inputData, keyword);
-                    return xorDecrypted;
-
-                }*/
 
 
     }

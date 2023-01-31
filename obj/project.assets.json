@@ -40,11 +40,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\RleeA\\vsworksapce\\Code\\GitHubProjects\\2023\\Mellosec\\SkavenCrypt\\SkavenCrypt.csproj",
+      "projectUniqueName": "C:\\Users\\RleeA\\OneDrive\\vsWorkspace\\Code\\GitHubProjects\\2023\\Mellosec\\SkavenCrypt\\SkavenCrypt.csproj",
       "projectName": "SkavenCrypt",
-      "projectPath": "C:\\Users\\RleeA\\vsworksapce\\Code\\GitHubProjects\\2023\\Mellosec\\SkavenCrypt\\SkavenCrypt.csproj",
+      "projectPath": "C:\\Users\\RleeA\\OneDrive\\vsWorkspace\\Code\\GitHubProjects\\2023\\Mellosec\\SkavenCrypt\\SkavenCrypt.csproj",
       "packagesPath": "C:\\Users\\RleeA\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\RleeA\\vsworksapce\\Code\\GitHubProjects\\2023\\Mellosec\\SkavenCrypt\\obj\\",
+      "outputPath": "C:\\Users\\RleeA\\OneDrive\\vsWorkspace\\Code\\GitHubProjects\\2023\\Mellosec\\SkavenCrypt\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
