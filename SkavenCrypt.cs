@@ -11,26 +11,53 @@ namespace SkavenCrypt
     {
         static void Main(string[] args)
         {
-            // Check if the correct number of arguments have been provided
-            if (args.Length < 3)
+            /*            // Check if the correct number of arguments have been provided
+                        if (args.Length < 3)
+                        {
+                            Console.WriteLine("Invalid number of arguments.");
+                            return;
+                        }
+
+                        // Determine the encryption mode
+                        string mode = args[0];
+                        if (!mode.StartsWith("-"))
+                        {
+                            Console.WriteLine("Invalid encryption mode.");
+                            return;
+                        }
+                        mode = mode.Substring(1);
+            */
+
+
+            if (args.Length < 2)
             {
-                Console.WriteLine("Invalid number of arguments.");
+                Console.WriteLine("Invalid arguments. Usage: filename <mode> [keyword] <inputFile> <outputFile>");
+                Console.WriteLine("Available modes are '-aes', '-b64' and '-xor'");
                 return;
             }
 
-            // Determine the encryption mode
             string mode = args[0];
-            if (!mode.StartsWith("-"))
-            {
-                Console.WriteLine("Invalid encryption mode.");
-                return;
-            }
-            mode = mode.Substring(1);
+            string inputFile = "";
+            string outputFile = "";
+            string keyword = "";
 
-            // Get the keyword and input/output file paths
+            if (args.Length == 3)
+            {
+                inputFile = args[1];
+                outputFile = args[2];
+            }
+            else if (args.Length == 4)
+            {
+                keyword = args[1];
+                inputFile = args[2];
+                outputFile = args[3];
+            }
+
+
+/*            // Get the keyword and input/output file paths
             string keyword = args[1];
             string inputFile = args[2];
-            string outputFile = args.Length > 3 ? args[3] : inputFile + ".enc";
+            string outputFile = args.Length > 3 ? args[3] : inputFile + ".enc";*/
 
             // Check if the -encode or -decode flag has been passed
             bool isEncode = args.Contains("-encode");
