@@ -11,24 +11,7 @@ namespace SkavenCrypt
     {
         static void Main(string[] args)
         {
-            /*            // Check if the correct number of arguments have been provided
-                        if (args.Length < 3)
-                        {
-                            Console.WriteLine("Invalid number of arguments.");
-                            return;
-                        }
-
-                        // Determine the encryption mode
-                        string mode = args[0];
-                        if (!mode.StartsWith("-"))
-                        {
-                            Console.WriteLine("Invalid encryption mode.");
-                            return;
-                        }
-                        mode = mode.Substring(1);
-            */
-
-
+            
             if (args.Length < 2)
             {
                 Console.WriteLine("Invalid arguments. Usage: filename <mode> [keyword] <inputFile> <outputFile>");
@@ -40,6 +23,13 @@ namespace SkavenCrypt
             string inputFile = "";
             string outputFile = "";
             string keyword = "";
+
+            if (!mode.StartsWith("-"))
+            {
+                Console.WriteLine("Invalid encryption mode.");
+                return;
+            }
+            mode = mode.Substring(1);
 
             if (args.Length == 3)
             {
