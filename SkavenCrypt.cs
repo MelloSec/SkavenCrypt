@@ -18,12 +18,11 @@ namespace SkavenCrypt
                 Console.WriteLine("Available modes are '-aes', '-b64' and '-xor'");
                 return;
             }
-
             string mode = args[0];
             string inputFile = "";
             string outputFile = "";
             string keyword = "";
-
+            
             if (!mode.StartsWith("-"))
             {
                 Console.WriteLine("Invalid encryption mode.");
@@ -193,6 +192,6 @@ namespace SkavenCrypt
                     }
                     break;
             }
-       }
+        }
     }
 }   

